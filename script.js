@@ -3,7 +3,7 @@ const characterData = {
     "Amaterasu": { ratio: 3, image: "images/AMATERASU.jpg" },
     "Arthur": { ratio: 2, image: "images/ARTHUR.jpg" },
     "C.Viper": { ratio: 3, image: "images/C.VIPER.jpg" },
-    "Captain America": { ratio: 4, image: "images/CAPTAIN AMERICA America.jpg" },
+    "Captain America": { ratio: 4, image: "images/CAPTAIN AMERICA.jpg" },
     "Chun-Li": { ratio: 2, image: "images/CHUN-LI.jpg" },
     "Chris": { ratio: 3, image: "images/CHRIS.jpg" },
     "Dante": { ratio: 5, image: "images/DANTE.jpg" },
