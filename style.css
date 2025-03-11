@@ -1,0 +1,390 @@
+/* --- General Styles --- */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding-bottom: 80px; /*  for the fixed ban toggle */
+}
+
+#main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60px; /*  for spacing */
+
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 45px;
+    margin-bottom: 45px;
+    }
+
+
+.player-section {
+    
+    padding: 10px;
+    width: 45%;  /* Takes up half the container, minus padding */
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    opacity: 50%;
+}
+
+.player-section.active {
+    background-color: rgb(255, 255, 255);
+    border-color: #444;
+    border: 5px solid #666;
+    opacity: 100%;
+    
+}
+/* --- Character Pool Styles --- */
+.character-pool {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-height: 400px; /*  a scrollbar if needed */
+    overflow-y: auto;
+    width: 95%;
+    /* Remove padding/border that might interfere with width */
+    padding: 0;
+    border: none;
+}
+
+.character-button {
+    padding: 15px 24px;
+    margin: 2px;
+    background-color: #fff;
+    border: 2px solid #999;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    font-size: 16px;
+    white-space: nowrap; /* Prevent text wrapping */
+    display: inline-flex; /*  centering */
+    align-items: center;
+    justify-content: center;
+
+}
+
+.character-button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #aaa;
+}
+
+.character-button.banned {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: purple;
+}
+
+.character-button:hover:not(.disabled):not(.banned) {
+    background-color: #e0e0e0;
+    border-color: #666;
+}
+/* --- Team Section Styles --- */
+.team-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    align-items: center; /* Vertical alignment */
+}
+
+.team-slot {
+    width: 180px;
+    height: 180px;
+    border: 1px dashed #999;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.team-slot img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+	object-fit: contain;
+}
+
+.team-slot-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    padding: 2px 0;
+    z-index: 10;
+}
+
+.ratio-info {
+    margin-top: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.ratio-info.exceeded {
+    color: red;
+}
+
+/* --- Ban Section Styles --- */
+.ban-section {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-top: 5px;
+	width: 100%;
+}
+
+.ban-type {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	margin-bottom: 2px;
+	width: 100%;
+}
+
+.ban-slot1 {
+    padding: 4px 8px;
+    margin-left: 5px;
+    border: 1px dashed #999;
+    border-radius: 4px;
+    display: inline-flex; /* Use inline-flex for centering */
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 0, 255, 0.5);
+    font-size: 14px;
+}
+
+.ban-slot2 {
+    padding: 4px 8px;
+    margin-left: 5px;
+    border: 1px dashed #999;
+    border-radius: 4px;
+    display: inline-flex; /* Use inline-flex for centering */
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 0, 0, 0.5);
+    font-size: 14px;
+}
+
+.ban-type > span{
+    min-width: 75px;
+}
+
+/* --- Button Styles --- */
+.reset-button {
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.reset-button:hover {
+    background-color: #367c39;
+}
+
+h1 {
+    text-align: center;
+	margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 24px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 0.5em;
+    font-size: 18px;
+}
+
+.bans-header {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+    display: none; /* Initially hidden */
+}
+
+/* --- Player Buttons --- */
+.player-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.player-button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 16px;
+}
+
+.player-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* --- Toggle Switch Styles --- */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px; /* Reduced width */
+  height: 20px; /* Reduced height */
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 20px; /* Match the height */
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px; /* Reduced size */
+    width: 16px;  /* Reduced size */
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(20px); /* Reduced translation */
+    -ms-transform: translateX(20px);  /* Reduced translation */
+    transform: translateX(20px);       /* Reduced translation */
+}
+
+/* --- Ban Toggle Section --- */
+.ban-toggle-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.ban-toggle-label {
+	display: flex;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+/* Fixed Ban Controls */
+#ban-controls {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+/* --- Media Queries for Responsiveness --- */
+@media (max-width: 768px) {
+	.container {
+        flex-direction: column; /* Stack player sections vertically */
+        align-items: center; /* Center player sections */
+    }
+
+    .player-section {
+        width: 90%; /*  width on smaller screens */
+        margin-bottom: 20px; /* Add spacing between sections */
+    }
+    .character-button {
+        font-size: 12px;
+        padding: 4px 6px;
+    }
+
+    .team-slot, .ban-slot {
+        font-size: 12px;
+        padding: 3px 6px;
+    }
+
+    .team-slot {
+        width: 50px;  /* Smaller on mobile */
+        height: 50px; /* Smaller on mobile */
+    }
+	.team-slot-text {
+        font-size: 8px; /* Even smaller font on mobile */
+    }
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+    .player-buttons {
+        margin-bottom: 5px; /* Reduce button margin */
+    }
+
+    .player-button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    #ban-controls {
+        position: relative; /* Remove fixed positioning */
+        width: 100%; /* Full width on mobile */
+        margin-top: 10px;
+        margin-bottom: 0px;
+        border: none;
+        box-shadow: none;
+
+    }
+}

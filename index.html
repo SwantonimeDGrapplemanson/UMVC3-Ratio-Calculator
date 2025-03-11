@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMVC3 Ratio Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id="main-content">
+		<h1>UMVC3 Ratio Calculator + Ban Manager</h1>
+
+		<div class="player-buttons">
+			<button id="player1-button" class="player-button active" onclick="setActivePlayer(1)">Player 1</button>
+			<button id="player2-button" class="player-button" onclick="setActivePlayer(2)">Player 2</button>
+		</div>
+
+		<div class="container">
+			<div class="player-section active" id="player1">
+				<h2>Player 1</h2>
+				<div class="team-section">
+					<div class="team-slot" id="p1-slot1"></div>
+					<div class="team-slot" id="p1-slot2"></div>
+					<div class="team-slot" id="p1-slot3"></div>
+				</div>
+				 <div class="ratio-info" id="p1-ratio-info">
+					Team Ratio: <span id="p1-team-ratio">0</span> / <span id="p1-max-ratio">10</span>
+				</div>
+				<div class="bans-header" id="p1-bans-header">Bans</div>
+				<div class="ban-section" id="p1-ban-section">
+					<div class="ban-type">
+						<span>Additive:</span><div class="ban-slot1" id="p1-add-ban"></div>
+					</div>
+					<div class="ban-type">
+						<span>Subtractive:</span> <div class="ban-slot2" id="p1-sub-ban"></div>
+					</div>
+				</div>
+				<button class="reset-button" onclick="resetPlayer(1)">Reset Team</button>
+				<button class="reset-button" onclick="resetBans(1)">Reset Bans</button>
+			</div>
+
+			<div class="player-section" id="player2">
+				<h2>Player 2</h2>
+				<div class="team-section">
+					<div class="team-slot" id="p2-slot1"></div>
+					<div class="team-slot" id="p2-slot2"></div>
+					<div class="team-slot" id="p2-slot3"></div>
+				</div>
+				<div class="ratio-info" id="p2-ratio-info">
+					Team Ratio: <span id="p2-team-ratio">0</span> / <span id="p2-max-ratio">10</span>
+				</div>
+				<div class="bans-header" id="p2-bans-header">Bans</div>
+				<div class="ban-section" id="p2-ban-section">
+					<div class="ban-type">
+					   <span>Additive:</span><div class="ban-slot1" id="p2-add-ban"></div>
+					</div>
+					<div class="ban-type">
+						<span>Subtractive:</span> <div class="ban-slot2" id="p2-sub-ban"></div>
+					</div>
+				</div>
+				<button class="reset-button" onclick="resetPlayer(2)">Reset Team</button>
+				<button class="reset-button" onclick="resetBans(2)">Reset Bans</button>
+			</div>
+		</div>
+		 <div class="character-pool"></div>
+
+        <div id="ban-controls">
+            <label class="ban-toggle-label">Enable Bans:</label>
+            <label class="switch">
+                <input type="checkbox" id="banToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+	</div>
+
+
+
+    <script src="script.js"></script>
+</body>
+<footer>
+    <a href="//linktr.ee/tnseluna">
+        Made by "Tennessee Luna": Click here find my social media links via Link Tree! Follow to support!
+    </a>
+</footer>
+</html>
