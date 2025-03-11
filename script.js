@@ -52,8 +52,8 @@ const characterData = {
 };
 
 let playerTeams = {
-    1: { slot1: null, slot2: null, slot3: null, teamRatio: 0, maxRatio: 10, addBan: null, subBan: null },
-    2: { slot1: null, slot2: null, slot3: null, teamRatio: 0, maxRatio: 10, addBan: null, subBan: null }
+    1: { slot1: null, slot2: null, slot3: null, teamRatio: 0, maxRatio: 10, addBan: null, subBan: null, pickedCharacters: new Set() },
+    2: { slot1: null, slot2: null, slot3: null, teamRatio: 0, maxRatio: 10, addBan: null, subBan: null, pickedCharacters: new Set() }
 };
 
 let currentPlayer = 1;
@@ -61,7 +61,7 @@ let bansEnabled = false;
 
 function createCharacterPool() {
     const poolDiv = document.querySelector('.character-pool');
-    poolDiv.innerHTML = ''; // Clear existing buttons
+    poolDiv.innerHTML = '';
 
     for (const charName in characterData) {
         const charButton = document.createElement('button');
@@ -72,7 +72,7 @@ function createCharacterPool() {
         poolDiv.appendChild(charButton);
     }
     updateVergilDisplay();
-    updateBanUI(); // Includes showing/hiding Reset Bans buttons
+    updateBanUI();
 }
 
 function handleCharacterClick(event) {
@@ -99,11 +99,18 @@ function addCharacterToTeam(player, character) {
         return;
     }
 
+    if (player === 1 && team.pickedCharacters.has(character)) {
+        return;
+    }
+
     for (let i = 1; i <= 3; i++) {
         if (!team[`slot${i}`]) {
             team[`slot${i}`] = character;
             team.teamRatio += characterData[character].ratio;
-            updateTeamDisplay(player);  //Update team display *before* ratio
+            if (player === 1) {
+                team.pickedCharacters.add(character);
+            }
+            updateTeamDisplay(player);
             updateRatioDisplay(player);
             updateCharacterPool();
             break;
@@ -120,7 +127,7 @@ function setBan(type, player, character) {
         } else {
             team.addBan = character;
         }
-    } else { // type is 'sub'
+    } else {
         if (team.subBan === character) {
             team.subBan = null;
         } else {
@@ -146,30 +153,25 @@ function isCharacterBanned(character) {
            player2Bans.subBan === character;
 }
 
-//Updates the displays for teams
 function updateTeamDisplay(player) {
     const team = playerTeams[player];
     for (let i = 1; i <= 3; i++) {
         const slot = document.getElementById(`p${player}-slot${i}`);
-        slot.innerHTML = ''; // Clear the slot first
+        slot.innerHTML = '';
 
         if (team[`slot${i}`]) {
             const charName = team[`slot${i}`];
             const charData = characterData[charName];
 
-			// Create the image element
             const img = document.createElement('img');
             img.src = charData.image;
             img.alt = charName;
             slot.appendChild(img);
 
-            // Create a text element for the character name
             const textSpan = document.createElement('span');
             textSpan.classList.add('team-slot-text')
             textSpan.textContent = charName;
-            slot.appendChild(textSpan); // Add text *after* image
-
-
+            slot.appendChild(textSpan);
         }
     }
 }
@@ -204,6 +206,9 @@ function resetPlayer(player) {
     playerTeams[player].slot2 = null;
     playerTeams[player].slot3 = null;
     playerTeams[player].teamRatio = 0;
+    if (player === 1) {
+        playerTeams[player].pickedCharacters.clear();
+    }
     updateMaxRatio();
     updateTeamDisplay(player);
     updateRatioDisplay(player);
@@ -248,7 +253,6 @@ function updateVergilDisplay() {
     }
 }
 
-//Disabling characters and updating character pool
 function updateCharacterPool() {
     const characterButtons = document.querySelectorAll('.character-button');
     characterButtons.forEach(button => {
@@ -271,6 +275,10 @@ function updateCharacterPool() {
 
         if (!button.classList.contains('banned')) {
             disableByRatio(currentPlayer, character, button);
+        }
+
+        if (currentPlayer === 1 && playerTeams[1].pickedCharacters.has(character) && !playerTeams[1].slot3) {
+            button.classList.add('disabled');
         }
     });
 }
@@ -318,7 +326,7 @@ function updateMaxRatio() {
         updateRatioDisplay(player);
     }
 }
-//Disables characters based on current ratio.
+
 function disableByRatio(player, character, button) {
     const team = playerTeams[player];
     const charRatio = characterData[character].ratio;
@@ -340,7 +348,6 @@ function disableByRatio(player, character, button) {
     }
 }
 
-// Event listener for the ban toggle
 document.getElementById('banToggle').addEventListener('change', function() {
     bansEnabled = this.checked;
     updateVergilDisplay();
@@ -349,7 +356,6 @@ document.getElementById('banToggle').addEventListener('change', function() {
     resetBans(2);
 });
 
-// Initial setup
 createCharacterPool();
 updateTeamDisplay(1);
 updateTeamDisplay(2);
